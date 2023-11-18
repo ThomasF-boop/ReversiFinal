@@ -2,10 +2,40 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+
 
 namespace ReversiRestApi
 {
+    public class KleurArrayConverter : JsonConverter<Kleur[,]>
+    {
+        public override Kleur[,] Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Write(Utf8JsonWriter writer, Kleur[,] value, JsonSerializerOptions options)
+        {
+            writer.WriteStartArray();
+
+            for (int i = 0; i < value.GetLength(0); i++)
+            {
+                writer.WriteStartArray();
+
+                for (int j = 0; j < value.GetLength(1); j++)
+                {
+                    JsonSerializer.Serialize(writer, value[i, j], options);
+                }
+
+                writer.WriteEndArray();
+            }
+
+            writer.WriteEndArray();
+        }
+    }
+
     public class Spel : ISpel
     {
         private const int bordOmvang = 8;
@@ -25,7 +55,9 @@ namespace ReversiRestApi
         public string Speler1Token { get; set; }
         public string Speler2Token { get; set; }
 
+       
         private Kleur[,] bord;
+        [JsonConverter(typeof(KleurArrayConverter))]
         public Kleur[,] Bord
         {
             get

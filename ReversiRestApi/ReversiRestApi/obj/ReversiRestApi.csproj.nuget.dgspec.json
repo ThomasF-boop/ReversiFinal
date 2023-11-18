@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "F:\\school\\Reversi Final\\ReversiRestApi\\ReversiRestApi\\ReversiRestApi.csproj": {}
+    "F:\\school\\Reversi Final\\ReversiFinal\\ReversiRestApi\\ReversiRestApi\\ReversiRestApi.csproj": {}
   },
   "projects": {
-    "F:\\school\\Reversi Final\\ReversiRestApi\\ReversiRestApi\\ReversiRestApi.csproj": {
+    "F:\\school\\Reversi Final\\ReversiFinal\\ReversiRestApi\\ReversiRestApi\\ReversiRestApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\school\\Reversi Final\\ReversiRestApi\\ReversiRestApi\\ReversiRestApi.csproj",
+        "projectUniqueName": "F:\\school\\Reversi Final\\ReversiFinal\\ReversiRestApi\\ReversiRestApi\\ReversiRestApi.csproj",
         "projectName": "ReversiRestApi",
-        "projectPath": "F:\\school\\Reversi Final\\ReversiRestApi\\ReversiRestApi\\ReversiRestApi.csproj",
+        "projectPath": "F:\\school\\Reversi Final\\ReversiFinal\\ReversiRestApi\\ReversiRestApi\\ReversiRestApi.csproj",
         "packagesPath": "C:\\Users\\Hans\\.nuget\\packages\\",
-        "outputPath": "F:\\school\\Reversi Final\\ReversiRestApi\\ReversiRestApi\\obj\\",
+        "outputPath": "F:\\school\\Reversi Final\\ReversiFinal\\ReversiRestApi\\ReversiRestApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Hans\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -40,6 +40,10 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.2.3, )"
