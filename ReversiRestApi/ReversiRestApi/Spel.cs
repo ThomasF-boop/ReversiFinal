@@ -274,5 +274,10 @@ namespace ReversiRestApi
             }
             return stenenOmgedraaid;
         }
+
+        public Kleur Opgeven()
+        {
+            return GetKleurTegenstander(AandeBeurt);
+        }
     }
 }
