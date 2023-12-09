@@ -24,8 +24,10 @@ namespace ReversiRestApi.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<string>> GetSpelOmschrijvingenVanSpellenMetWachtendeSpeler()
         {
-            return Ok(iRepository.GetSpellen().Where(spel => spel.Speler2Token == null));
+            return Ok(iRepository.GetSpellen().Where(spel => spel.Speler2Token == null).ToList());
         }
+
+
 
         // POST api/spel
         [HttpPost]

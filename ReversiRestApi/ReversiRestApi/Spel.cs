@@ -11,13 +11,16 @@ namespace ReversiRestApi
 {
     public class KleurArrayConverter : JsonConverter<Kleur[,]>
     {
+    
         public override Kleur[,] Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
+            Console.WriteLine("Read");
             throw new NotImplementedException();
         }
 
         public override void Write(Utf8JsonWriter writer, Kleur[,] value, JsonSerializerOptions options)
         {
+            Console.WriteLine("Write");
             writer.WriteStartArray();
 
             for (int i = 0; i < value.GetLength(0); i++)
@@ -35,7 +38,7 @@ namespace ReversiRestApi
             writer.WriteEndArray();
         }
     }
-
+    //[JsonConverter(typeof(KleurArrayConverter))]
     public class Spel : ISpel
     {
         private const int bordOmvang = 8;
@@ -55,21 +58,26 @@ namespace ReversiRestApi
         public string Speler1Token { get; set; }
         public string Speler2Token { get; set; }
 
-       
+        [JsonConverter(typeof(KleurArrayConverter))]
         private Kleur[,] bord;
+
+
         [JsonConverter(typeof(KleurArrayConverter))]
         public Kleur[,] Bord
         {
             get
             {
+                Console.WriteLine("Bord getter called");
                 return bord;
             }
             set
             {
-                bord = value;
+                Console.WriteLine("Bord setter called");
+                bord =  value;
             }
         }
 
+ 
         public Kleur AandeBeurt { get; set; }
         public Spel()
         {

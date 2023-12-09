@@ -1,11 +1,17 @@
 using ReversiRestApi.Controllers;
 using ReversiRestApi;
+using ReversiRestApi.DAL;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddDbContext<SpelContext>(options =>options.UseSqlServer(builder.Configuration.GetConnectionString("ReversiDbRestApi")));
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.Converters.Add(new KleurArrayConverter());
+}); ;
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

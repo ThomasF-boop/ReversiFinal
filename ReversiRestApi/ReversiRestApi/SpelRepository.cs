@@ -30,6 +30,7 @@
 
         public List<Spel> GetSpellen()
         {
+            Console.Write("funny");
             return Spellen;
         }
 
