@@ -45,7 +45,6 @@ namespace ReversiRestApi.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Speler2Token")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Token")
@@ -54,7 +53,7 @@ namespace ReversiRestApi.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("spellen");
+                    b.ToTable("Spellen", (string)null);
                 });
 #pragma warning restore 612, 618
         }

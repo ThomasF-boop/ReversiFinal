@@ -2,6 +2,7 @@ using ReversiRestApi.Controllers;
 using ReversiRestApi;
 using ReversiRestApi.DAL;
 using Microsoft.EntityFrameworkCore;
+using ReversiRestApi.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,7 +19,7 @@ builder.Services.AddSwaggerGen();
 
 
 // Register services for dependency injection
-builder.Services.AddTransient<ISpelRepository, SpelRepository>();
+builder.Services.AddTransient<ISpelRepository, SpelDatabaseRepository>();
 builder.Services.AddTransient<SpelController>();
 
 

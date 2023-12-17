@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
@@ -51,12 +52,14 @@ namespace ReversiRestApi
                                 {  1, -1 },         // naar linksonder
                                 { -1,  1 },         // naar rechtsboven
                                 { -1, -1 } };       // naar linksboven
-
+        
+        
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
         public string Omschrijving { get; set; }
         public string Token { get; set; }
         public string Speler1Token { get; set; }
-        public string Speler2Token { get; set; }
+        public string? Speler2Token { get; set; }
 
         [JsonConverter(typeof(KleurArrayConverter))]
         private Kleur[,] bord;

@@ -7,7 +7,7 @@ namespace ReversiRestApi.DAL
 {
     public class SpelContext : DbContext
     {
-        public DbSet<Spel> spellen { get; set; }
+        public DbSet<Spel> Spellen { get; set; }
 
         public SpelContext(DbContextOptions<SpelContext> options) : base(options) { }
 
