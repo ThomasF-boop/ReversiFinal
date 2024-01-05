@@ -1,0 +1,22 @@
+// Basisstijlen voor een fiche
+$piece-size: 40px;
+$border-width: 1px;
+
+.piece {
+    width: $piece-size;
+    height: $piece-size;
+    border-radius: 50%;
+    border: $border-width solid #000; // Default zwarte rand
+
+    &.black {
+        background-color: #000; // Zwarte kleur voor zwarte fiche
+    }
+
+    &.white {
+        background-color: #fff; // Witte kleur voor witte fiche
+    }
+
+    &.transparent {
+        opacity: 0.6; // Doorzichtigheidsstijl
+    }
+}

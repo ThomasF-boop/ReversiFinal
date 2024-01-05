@@ -5,8 +5,20 @@
 @{
     ViewData["Title"] = "Details";
 }
+@section scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"></script>
+    <script src="~/js/app.js"></script>
+    <link rel="stylesheet" href="~/css/style.min.css">
+}
 
 <h1>Detaisl</h1>
 
 <p>@Model.Bord</p>
 <p>@Model.Omschrijving</p>
+
+
+<div id="game-board" class="board"></div>
+
+<script>
+    $(document).ready(function
+</script>

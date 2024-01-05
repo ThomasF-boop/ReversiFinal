@@ -1,4 +1,6 @@
-﻿namespace ReversiRestApi.Repository
+﻿using ReversiRestApi.Model;
+
+namespace ReversiRestApi.Repository
 {
     public interface ISpelRepository
     {

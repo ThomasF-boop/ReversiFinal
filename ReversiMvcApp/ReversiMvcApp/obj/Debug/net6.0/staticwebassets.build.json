@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Yeimtsegcnf25QS/r0UgoECEOJpEShcCPBCKzzPBFB0=",
+  "Hash": "LZErQEd8YwMy2Xuk6+roRry6MFbPia4bOTNjHNGI/IY=",
   "Source": "ReversiMvcApp",
   "BasePath": "_content/ReversiMvcApp",
   "Mode": "Default",
@@ -1088,6 +1088,23 @@
       "OriginalItemSpec": "wwwroot\\css\\site.css"
     },
     {
+      "Identity": "F:\\school\\Reversi Final\\ReversiFinal\\ReversiMvcApp\\ReversiMvcApp\\wwwroot\\css\\style.min.css",
+      "SourceId": "ReversiMvcApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "F:\\school\\Reversi Final\\ReversiFinal\\ReversiMvcApp\\ReversiMvcApp\\wwwroot\\",
+      "BasePath": "_content/ReversiMvcApp",
+      "RelativePath": "css/style.min.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\style.min.css"
+    },
+    {
       "Identity": "F:\\school\\Reversi Final\\ReversiFinal\\ReversiMvcApp\\ReversiMvcApp\\wwwroot\\favicon.ico",
       "SourceId": "ReversiMvcApp",
       "SourceType": "Discovered",
@@ -1103,6 +1120,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "F:\\school\\Reversi Final\\ReversiFinal\\ReversiMvcApp\\ReversiMvcApp\\wwwroot\\js\\app.js",
+      "SourceId": "ReversiMvcApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "F:\\school\\Reversi Final\\ReversiFinal\\ReversiMvcApp\\ReversiMvcApp\\wwwroot\\",
+      "BasePath": "_content/ReversiMvcApp",
+      "RelativePath": "js/app.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\app.js"
     },
     {
       "Identity": "F:\\school\\Reversi Final\\ReversiFinal\\ReversiMvcApp\\ReversiMvcApp\\wwwroot\\js\\site.js",

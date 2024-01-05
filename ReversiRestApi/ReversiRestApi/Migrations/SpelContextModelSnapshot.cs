@@ -21,7 +21,7 @@ namespace ReversiRestApi.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("ReversiRestApi.Spel", b =>
+            modelBuilder.Entity("ReversiRestApi.Model.Spel", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -32,9 +32,10 @@ namespace ReversiRestApi.Migrations
                     b.Property<int>("AandeBeurt")
                         .HasColumnType("int");
 
-                    b.Property<string>("Bord")
+                    b.Property<string>("BoardString")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Bord");
 
                     b.Property<string>("Omschrijving")
                         .IsRequired()
@@ -53,7 +54,7 @@ namespace ReversiRestApi.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Spellen", (string)null);
+                    b.ToTable("Spellen");
                 });
 #pragma warning restore 612, 618
         }

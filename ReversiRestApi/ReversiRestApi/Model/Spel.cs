@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -8,11 +9,11 @@ using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 
-namespace ReversiRestApi
+namespace ReversiRestApi.Model
 {
-    public class KleurArrayConverter : JsonConverter<Kleur[,]>
+    public class KleurArrayConverter : System.Text.Json.Serialization.JsonConverter<Kleur[,]>
     {
-    
+
         public override Kleur[,] Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
             Console.WriteLine("Read");
@@ -30,7 +31,7 @@ namespace ReversiRestApi
 
                 for (int j = 0; j < value.GetLength(1); j++)
                 {
-                    JsonSerializer.Serialize(writer, value[i, j], options);
+                    System.Text.Json.JsonSerializer.Serialize(writer, value[i, j], options);
                 }
 
                 writer.WriteEndArray();
@@ -52,8 +53,8 @@ namespace ReversiRestApi
                                 {  1, -1 },         // naar linksonder
                                 { -1,  1 },         // naar rechtsboven
                                 { -1, -1 } };       // naar linksboven
-        
-        
+
+
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
         public string Omschrijving { get; set; }
@@ -61,26 +62,23 @@ namespace ReversiRestApi
         public string Speler1Token { get; set; }
         public string? Speler2Token { get; set; }
 
-        [JsonConverter(typeof(KleurArrayConverter))]
-        private Kleur[,] bord;
 
-
-        [JsonConverter(typeof(KleurArrayConverter))]
+        [Column("Bord")]
+        public string BoardString
+        {
+            get => JsonConvert.SerializeObject(Bord);
+            set => Bord = JsonConvert.DeserializeObject<Kleur[,]>(value);
+        }
+     
+        [NotMapped]
         public Kleur[,] Bord
         {
-            get
-            {
-                Console.WriteLine("Bord getter called");
-                return bord;
-            }
-            set
-            {
-                Console.WriteLine("Bord setter called");
-                bord =  value;
-            }
+            get;
+            set;
+            
         }
 
- 
+
         public Kleur AandeBeurt { get; set; }
         public Spel()
         {
@@ -94,7 +92,7 @@ namespace ReversiRestApi
             Bord[3, 4] = Kleur.Zwart;
             Bord[4, 3] = Kleur.Zwart;
 
-            AandeBeurt = Kleur.Geen;
+            AandeBeurt = Kleur.Wit;
         }
 
         public void Pas()
@@ -120,9 +118,9 @@ namespace ReversiRestApi
             {
                 for (int kolomZet = 0; kolomZet < bordOmvang; kolomZet++)
                 {
-                    if (bord[rijZet, kolomZet] == Kleur.Wit)
+                    if (Bord[rijZet, kolomZet] == Kleur.Wit)
                         aantalWit++;
-                    else if (bord[rijZet, kolomZet] == Kleur.Zwart)
+                    else if (Bord[rijZet, kolomZet] == Kleur.Zwart)
                         aantalZwart++;
                 }
             }
@@ -144,14 +142,14 @@ namespace ReversiRestApi
         {
             if (ZetMogelijk(rijZet, kolomZet))
             {
-                
+
 
                 for (int i = 0; i < 8; i++)
                 {
-                   DraaiStenenVanTegenstanderInOpgegevenRichtingOmIndienIngesloten(rijZet, kolomZet, AandeBeurt, richting[i, 0], richting[i, 1]);
-                
+                    DraaiStenenVanTegenstanderInOpgegevenRichtingOmIndienIngesloten(rijZet, kolomZet, AandeBeurt, richting[i, 0], richting[i, 1]);
+
                 }
-                bord[rijZet, kolomZet] = AandeBeurt;
+                Bord[rijZet, kolomZet] = AandeBeurt;
                 WisselBeurt();
             }
             else
@@ -159,7 +157,7 @@ namespace ReversiRestApi
                 throw new Exception($"Zet ({rijZet},{kolomZet}) is niet mogelijk!");
             }
 
-            
+
         }
 
         private static Kleur GetKleurTegenstander(Kleur kleur)
@@ -215,14 +213,14 @@ namespace ReversiRestApi
 
         private static bool PositieBinnenBordGrenzen(int rij, int kolom)
         {
-            return (rij >= 0 && rij < bordOmvang &&
-                    kolom >= 0 && kolom < bordOmvang);
+            return rij >= 0 && rij < bordOmvang &&
+                    kolom >= 0 && kolom < bordOmvang;
         }
 
         private bool ZetOpBordEnNogVrij(int rijZet, int kolomZet)
         {
             // Als op het bord gezet wordt, en veld nog vrij, dan return true, anders false
-            return (PositieBinnenBordGrenzen(rijZet, kolomZet) && Bord[rijZet, kolomZet] == Kleur.Geen);
+            return PositieBinnenBordGrenzen(rijZet, kolomZet) && Bord[rijZet, kolomZet] == Kleur.Geen;
         }
 
         private bool StenenInTeSluitenInOpgegevenRichting(int rijZet, int kolomZet,
@@ -254,9 +252,9 @@ namespace ReversiRestApi
             // Nu kijk je hoe je geeindigt bent met bovenstaande loop. Alleen
             // als alle drie onderstaande condities waar zijn, zijn er in de
             // opgegeven richting stenen in te sluiten.
-            return (PositieBinnenBordGrenzen(rij, kolom) &&
+            return PositieBinnenBordGrenzen(rij, kolom) &&
                     Bord[rij, kolom] == kleurZetter &&
-                    aantalNaastGelegenStenenVanTegenstander > 0);
+                    aantalNaastGelegenStenenVanTegenstander > 0;
         }
 
         private bool DraaiStenenVanTegenstanderInOpgegevenRichtingOmIndienIngesloten(int rijZet, int kolomZet,

@@ -58,8 +58,29 @@ namespace ReversiMvcApp.Controllers
                 return NotFound();
             }
 
-            var spel = await api.GetSpelByToken(token);
+            var spel = await api.GetSpelBySpelerToken(token);
             return View(spel);
+        }
+
+        public async Task<IActionResult> Join(string token)
+        {
+            if (token == null)
+            {
+                return NotFound();
+            }
+            var spel = await api.GetSpelByToken(token);
+
+            ClaimsPrincipal currentUser = this.User;
+            var spelerToken = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            var result = await api.JoinSpel(token, spelerToken);
+
+            if (result)
+            {
+                return RedirectToAction("Details", "Spel", new {token = spel.Token});
+            }
+
+            return BadRequest("Failed to join game, try again?");
         }
 
     }

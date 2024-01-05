@@ -23,7 +23,7 @@ const javascript = function (filesJs, filesJsOrder, backendPath) {
         })
       )
       .pipe(dest("./dist/js"))
-      .pipe(dest(backendPath + "js"));
+      .pipe(dest(backendPath + "/js"));
   };
 };
 

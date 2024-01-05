@@ -3,6 +3,7 @@ using ReversiRestApi;
 using ReversiRestApi.DAL;
 using Microsoft.EntityFrameworkCore;
 using ReversiRestApi.Repository;
+using ReversiRestApi.Model;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,20 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.Converters.Add(new KleurArrayConverter());
 }); ;
+
+builder.Services.AddCors(p => p.AddPolicy("corsapp", corsPolicyBuilder =>
+{
+    corsPolicyBuilder
+        .SetIsOriginAllowed(url =>
+        {
+            var host = new Uri(url).Host;
+
+            return host.Equals("localhost") || host.Equals("nr3353.hbo-ict.org");
+        })
+        .WithMethods("GET", "POST", "PUT")
+        .AllowAnyHeader();
+}));
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -31,7 +46,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseCors("corsapp");
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

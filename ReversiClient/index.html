@@ -13,19 +13,24 @@
           integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
     <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-            crossorigin="anonymous"></script>
+   
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <script src="js/FeedbackWidget.js"></script>
-    <script src="js/Game.js"></script>
+    <link rel="stylesheet" href="dist/css/style.min.css">
+    <link rel="stylesheet" href="css/board.sass">
+
+
+
+    <script src="dist/js/app.js"></script>
 </head>
 <body>
   
-    
+   
 
 <div id="feedback-success" class="alert alert-success" role="alert">
     <p>Veel succes met deze module!</p>
@@ -37,10 +42,13 @@
 
 <button class="btn btn-primary" id="ok-button">OK</button>
 
+<div id="game-board" class="board"></div>
+
 <script>
     // Use jQuery to handle the "OK" button click event
     $(document).ready(function () {
-        console.log("Document is ready");       
+        console.log("Document is ready");  
+             
 }); 
 
 function afterInit() {

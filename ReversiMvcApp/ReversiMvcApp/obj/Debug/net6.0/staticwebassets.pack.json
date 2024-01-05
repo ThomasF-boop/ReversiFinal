@@ -9,8 +9,16 @@
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
+      "Id": "F:\\school\\Reversi Final\\ReversiFinal\\ReversiMvcApp\\ReversiMvcApp\\wwwroot\\css\\style.min.css",
+      "PackagePath": "staticwebassets\\css\\style.min.css"
+    },
+    {
       "Id": "F:\\school\\Reversi Final\\ReversiFinal\\ReversiMvcApp\\ReversiMvcApp\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "F:\\school\\Reversi Final\\ReversiFinal\\ReversiMvcApp\\ReversiMvcApp\\wwwroot\\js\\app.js",
+      "PackagePath": "staticwebassets\\js\\app.js"
     },
     {
       "Id": "F:\\school\\Reversi Final\\ReversiFinal\\ReversiMvcApp\\ReversiMvcApp\\wwwroot\\js\\site.js",

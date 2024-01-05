@@ -49,7 +49,17 @@ namespace ReversiMvcApp.Service
             return true;
         }
 
-        public async Task<Spel> GetSpelByToken(string spelerToken)
+        public async Task<Spel> GetSpelByToken(string spelToken)
+        {
+            var response = await httpClient.GetAsync(spelToken);
+            Console.WriteLine(response.RequestMessage);
+            response.EnsureSuccessStatusCode();
+
+            var content = await response.Content.ReadAsStringAsync();
+            var temp = JsonConvert.DeserializeObject<Spel>(content);
+            return temp;
+        }
+        public async Task<Spel> GetSpelBySpelerToken(string spelerToken)
         {
             var response = await httpClient.GetAsync(spelerToken);
             Console.WriteLine(response.RequestMessage);
@@ -58,6 +68,30 @@ namespace ReversiMvcApp.Service
             var content = await response.Content.ReadAsStringAsync();
             var temp = JsonConvert.DeserializeObject<Spel>(content);
             return temp;
+        }
+
+        public async Task<bool> JoinSpel(string spelToken,string spelerToken)
+        {
+            var joinSpel = new
+            {
+                SpelToken = spelToken,
+                SpelerToken = spelerToken,
+            };
+
+            var json = JsonConvert.SerializeObject(joinSpel);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await httpClient.PutAsync("JoinSpel", content);
+            if (response.IsSuccessStatusCode)
+            {
+                return true;
+            }
+
+
+
+            return false;
+         
+           
         }
     }
 }

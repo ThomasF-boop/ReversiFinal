@@ -6,7 +6,7 @@ using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 
-namespace ReversiRestApi
+namespace ReversiRestApi.Model
 {
     public enum Kleur { Geen, Wit, Zwart };
     public interface ISpel

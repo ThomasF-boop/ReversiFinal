@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Newtonsoft.Json;
+using ReversiRestApi.Model;
 using System.Drawing;
 
 namespace ReversiRestApi.DAL
@@ -11,10 +12,10 @@ namespace ReversiRestApi.DAL
 
         public SpelContext(DbContextOptions<SpelContext> options) : base(options) { }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.ApplyConfiguration(new BoardConfiguration());
-        }
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.ApplyConfiguration(new BoardConfiguration());
+        //}
 
         public class BoardConfiguration : IEntityTypeConfiguration<Spel>
         {

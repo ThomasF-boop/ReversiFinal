@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using ReversiRestApi.Model;
+using ReversiRestApi.Model.Api;
 using ReversiRestApi.Repository;
 using System.Net;
 using System.Text;
@@ -104,32 +107,35 @@ namespace ReversiRestApi.Controllers
 
         // PUT 
         [HttpPut("Zet")]
-        public ActionResult PlaatsZet(string speltoken, string spelertoken, int rij, int colom) 
+        public ActionResult PlaatsZet(PlayerZet playerZet) 
         {
-            if(string.IsNullOrEmpty(speltoken) || string.IsNullOrEmpty(spelertoken)) return BadRequest();
+            if(string.IsNullOrEmpty(playerZet.speltoken) || string.IsNullOrEmpty(playerZet.spelertoken)) return BadRequest();
 
-            var spel = iRepository.GetSpel(speltoken);
+            var spel = iRepository.GetSpel(playerZet.speltoken);
 
             if (spel == null)
             {
-                return NotFound($"Spel met speltoken {speltoken} niet gevonden.");
+                return NotFound($"Spel met speltoken {playerZet.speltoken} niet gevonden.");
             }
-            if(!(spel.Speler1Token == speltoken || spel.Speler2Token == spelertoken)) return BadRequest("Speler zit niet in deze game");
-            if (!(spel.Speler1Token == spelertoken && spel.AandeBeurt == Kleur.Wit || spel.Speler2Token == spelertoken && spel.AandeBeurt == Kleur.Zwart)) return BadRequest("Speler niet aan de beurt");
+            if(!(spel.Speler1Token == playerZet.spelertoken || spel.Speler2Token == playerZet.spelertoken)) return BadRequest("Speler zit niet in deze game");
+            if (!(spel.Speler1Token == playerZet.spelertoken && spel.AandeBeurt == Kleur.Wit || spel.Speler2Token == playerZet.spelertoken && spel.AandeBeurt == Kleur.Zwart)) return BadRequest("Speler niet aan de beurt");
 
-            if (spel.ZetMogelijk(rij,colom))
+            if (spel.ZetMogelijk(playerZet.rij, playerZet.colom))
             {
-                spel.DoeZet(rij, colom);
-
+                spel.DoeZet(playerZet.rij, playerZet.colom);
+                
+                iRepository.SaveSpellen();
                 if (spel.Afgelopen())
                 {
                     return Ok("winnaar is " + spel.OverwegendeKleur());
                 }
                 return Ok(spel.Bord);
             }
-
-            return BadRequest();    
-                    
+            else
+            {
+                return BadRequest("zet niet mogelijk");
+            }
+          
                     
         }
 
@@ -150,6 +156,34 @@ namespace ReversiRestApi.Controllers
             spel.Opgeven();
 
             return Ok(spel.Bord);
+        }
+
+
+        [HttpPut("JoinSpel")]
+        public bool JoinSpel(PlayerGameData joinspel)
+        {
+            var spel = iRepository.GetSpel(joinspel.SpelToken);
+
+            if (spel == null)
+            {
+                return false;
+            }
+            
+
+            if (spel.Speler1Token == null)
+            {
+                spel.Speler1Token = joinspel.SpelerToken;
+                iRepository.SaveSpellen();
+                return true;
+            }
+
+            if (spel.Speler2Token == null)
+            {
+                spel.Speler2Token = joinspel.SpelerToken;
+                iRepository.SaveSpellen();
+                return true;
+            }
+            return false;
         }
 
     }

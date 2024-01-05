@@ -1,4 +1,8 @@
-﻿using ReversiRestApi.DAL;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.JSInterop.Implementation;
+using ReversiRestApi.DAL;
+using ReversiRestApi.Model;
+using ReversiRestApi.Model.Api;
 using System;
 
 namespace ReversiRestApi.Repository
@@ -25,12 +29,14 @@ namespace ReversiRestApi.Repository
 
         public Spel GetSpel(string spelToken)
         {
-            return _dbContext.Spellen.FirstOrDefault(spel => spel.Token == spelToken);
+            return _dbContext.Spellen.First(spel => spel.Token == spelToken);
         }
 
         public void SaveSpellen()
         {
+            
             _dbContext.SaveChanges();
+            Console.WriteLine(_dbContext.Spellen);
         }
 
         public void DeleteSpel(Spel spel)
@@ -44,6 +50,8 @@ namespace ReversiRestApi.Repository
             return _dbContext.Spellen.FirstOrDefault(spel =>
                 spel.Speler1Token == spelerToken || spel.Speler2Token == spelerToken);
         }
+
+
 
         // ...
     }
