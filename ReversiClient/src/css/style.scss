@@ -1,0 +1,61 @@
+// Define variables for consistent styling
+$cell-size: 40px;
+$board-gap: 2px;
+$border-color: #000;
+$black-piece-bg: #000;
+$white-piece-bg: #fff;
+$popup-bg: #fff;
+$popup-border-color: #ccc;
+$popup-shadow: rgba(0, 0, 0, 0.1);
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(8, 50px);
+    gap: $board-gap;
+
+    .cell {
+        width: $cell-size;
+        height: $cell-size;
+        border: 1px solid $border-color;
+        box-sizing: border-box;
+        cursor: pointer;
+
+        &.black-piece {
+            background-color: $black-piece-bg;
+            border-radius: 50%;
+        }
+
+        &.white-piece {
+            background-color: $white-piece-bg;
+            border-radius: 50%;
+        }
+    }
+}
+
+// Popup styling
+#popup {
+    display: none; // Hidden by default
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: $popup-bg;
+    border: 1px solid $popup-border-color;
+    box-shadow: 0 0 10px $popup-shadow;
+    z-index: 1000;
+
+    p {
+        margin: 0;
+        font-size: 16px;
+    }
+
+    button {
+        margin-top: 10px;
+    }
+}
+
+// Basic styling for buttons
+button {
+    margin-right: 10px;
+}

@@ -12,38 +12,58 @@ namespace ReversiMvcApp.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ReversiDbContext _context;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public HomeController(ILogger<HomeController> logger,ReversiDbContext context)
+        public HomeController(ILogger<HomeController> logger,ReversiDbContext context,RoleManager<IdentityRole> roleManager,UserManager<IdentityUser> userManager)
         {
             _logger = logger;
             _context = context;
-         
+            _roleManager = roleManager;
+            _userManager = userManager;
+
+
         }
         [Authorize]
-        public  IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             ClaimsPrincipal currentUser = this.User;
             var currentUserID = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
 
+            // Ensure the user exists in the database
             var existingUser = _context.Speler.FirstOrDefault(s => s.GUID == currentUserID);
 
             if (existingUser == null)
             {
-     
                 // Create a new Speler record with the user ID
                 Speler newSpeler = new Speler
                 {
                     GUID = currentUserID,
-                    // Set other properties as needed
-                };
+                    Naam = currentUser.Identity.Name
+                // Set other properties as needed
+            };
 
                 _context.Speler.Add(newSpeler);
                 _context.SaveChanges();
             }
 
+            // Check if the user exists in the AspNetUsers table
+            var user = await _userManager.FindByIdAsync(currentUserID);
+            if (user != null)
+            {
+                var roles = await _userManager.GetRolesAsync(user);
+
+                // Check if the user is already in the "Speler" role
+                if (!roles.Any())
+                {
+                    await _userManager.AddToRoleAsync(user, "Speler");
+                }
+            }
+
             return View();
         }
-        [Authorize]
+
+        [Authorize(Roles = "Beheerder")]
         public IActionResult Privacy()
         {
             return View();

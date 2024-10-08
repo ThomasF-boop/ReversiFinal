@@ -256,3 +256,4 @@ F:\school\Reversi Final\ReversiFinal\ReversiMvcApp\ReversiMvcApp\obj\Debug\net6.
 F:\school\Reversi Final\ReversiFinal\ReversiMvcApp\ReversiMvcApp\obj\Debug\net6.0\ReversiMvcApp.pdb
 F:\school\Reversi Final\ReversiFinal\ReversiMvcApp\ReversiMvcApp\obj\Debug\net6.0\ReversiMvcApp.genruntimeconfig.cache
 F:\school\Reversi Final\ReversiFinal\ReversiMvcApp\ReversiMvcApp\obj\Debug\net6.0\ref\ReversiMvcApp.dll
+F:\school\Reversi Final\ReversiFinal\ReversiMvcApp\ReversiMvcApp\obj\Debug\net6.0\ReversiMvcApp.sourcelink.json

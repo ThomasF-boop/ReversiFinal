@@ -1,0 +1,9 @@
+{{#if (isBlack player)}}
+  <div class="black-piece cell"></div>
+{{else}}
+  {{#if (isWhite player)}}
+    <div class="white-piece cell"></div>
+  {{else}}
+    <div class="cell" onclick="Game.Reversie.showPiece({{row}}, {{col}}, 1);"></div>
+  {{/if}}
+{{/if}}

@@ -37,9 +37,15 @@ namespace ReversiRestApi.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Bord");
 
+                    b.Property<bool>("Finished")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Omschrijving")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PuntenGegeven")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Speler1Token")
                         .IsRequired()
@@ -52,9 +58,12 @@ namespace ReversiRestApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Winnaar")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("ID");
 
-                    b.ToTable("Spellen");
+                    b.ToTable("Spellen", (string)null);
                 });
 #pragma warning restore 612, 618
         }

@@ -15,12 +15,24 @@
     "@babel/core": "^7.23.5",
     "@babel/preset-env": "^7.23.5",
     "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^9.0.0",
     "gulp-babel": "^8.0.0",
+    "gulp-clean-css": "^4.3.0",
     "gulp-concat": "^2.6.1",
+    "gulp-declare": "^0.3.0",
+    "gulp-handlebars": "^5.0.2",
+    "gulp-htmlmin": "^5.0.1",
+    "gulp-postcss": "^9.1.0",
+    "gulp-rename": "^2.0.0",
     "gulp-sass": "^5.1.0",
+    "gulp-uglify": "^3.0.2",
+    "gulp-uglifyjs": "^0.6.2",
+    "gulp-wrap": "^0.15.0",
+    "postcss": "^8.4.33",
     "sass": "^1.69.6"
   },
   "dependencies": {
-    "gulp-order": "^1.2.0"
+    "gulp-order": "^1.2.0",
+    "merge-stream": "^2.0.0"
   }
 }

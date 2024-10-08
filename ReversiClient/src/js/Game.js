@@ -21,6 +21,7 @@ const Game = (function (url) {
     configMap.playerToken = playerToken;
     configMap.Token = Token;
     Game.Data.init(url, "production");
+    Game.Template.init();
     console.log(configMap.apiUrl);
     pollrate = setInterval(_getCurrentGameState, 2000);
   };
@@ -34,16 +35,42 @@ const Game = (function (url) {
           initialize = true;
           Game.Reversie.CreateBord(data.bord);
           Game.configMap.Kleur = data.aandeBeurt;
+        } else if (data.finished == true) {
+          clearInterval(pollrate);
+          Game.Reversie.setWinner(data.winnaar);
+          const currentUrl = window.location;
+          const redirectUrl = `${currentUrl.protocol}//${currentUrl.host}/Spel/Result?Token=${configMap.Token}`;
+          window.location.href = redirectUrl;
+          console.log("Game is finished");
         } else {
-          Game.Reversie.updateBord(data.bord);
+          Game.Reversie.updateBord(data);
         }
       }
     );
   };
 
+  function fillGameBoard() {
+    const boardData = [
+      [1, 0, 1, 0, 0, 2, 0, 0],
+      [2, 1, 1, 1, 1, 1, 1, 0],
+      [0, 0, 1, 1, 1, 2, 0, 0],
+      [2, 2, 2, 1, 2, 2, 0, 0],
+      [0, 0, 1, 2, 2, 0, 0, 0],
+      [0, 0, 2, 2, 2, 0, 0, 0],
+      [0, 0, 0, 2, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+    ];
+
+    const templateFunction = spa_templates.templates.gameboard.body;
+    const renderedHTML = templateFunction({ board: boardData });
+    document.getElementById("game-board").innerHTML = renderedHTML;
+  }
+
+  //  "${currentUrl.protocol}//${currentUrl.host}/Spel/Result?Token=" +configMap.Token;
   // Waarde/object geretourneerd aan de outer scope
   return {
     init: privateInit,
+    fillGameBoard: fillGameBoard,
     configMap: configMap,
   };
 })("/api/url");

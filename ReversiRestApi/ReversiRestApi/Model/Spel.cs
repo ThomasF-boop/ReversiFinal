@@ -62,6 +62,11 @@ namespace ReversiRestApi.Model
         public string Speler1Token { get; set; }
         public string? Speler2Token { get; set; }
 
+        public bool Finished {  get; set; } = false;
+
+        public string? Winnaar { get; set; }
+        public bool PuntenGegeven { get; set; } = false;
+
 
         [Column("Bord")]
         public string BoardString
@@ -125,9 +130,16 @@ namespace ReversiRestApi.Model
                 }
             }
             if (aantalWit > aantalZwart)
+            {
+                Winnaar = Speler1Token;
                 return Kleur.Wit;
+            }
             if (aantalZwart > aantalWit)
+            {
+                Winnaar = Speler2Token;
                 return Kleur.Zwart;
+            }
+            Winnaar = "Gelijk";
             return Kleur.Geen;
         }
 

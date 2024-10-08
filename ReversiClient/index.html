@@ -1,6 +1,7 @@
 <!DOCTYPE html>
+<!-- allow for cors policy-->
 <html lang="en">
-<head>
+<link>
     <meta charset="UTF-8">
     <title>Javascript getting started</title>
 
@@ -12,8 +13,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
           integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
-    <!-- Latest compiled and minified JavaScript -->
-   
+    <!-- Latest compiled and minified JavaScript --> 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
@@ -22,16 +22,15 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <link rel="stylesheet" href="dist/css/style.min.css">
-    <link rel="stylesheet" href="css/board.sass">
-
-
 
     <script src="dist/js/app.js"></script>
+    <script src="dist/js/vendor.js"></script>
+    <script src="dist/js/templates.js"></script>
+    
+   
 </head>
 <body>
   
-   
-
 <div id="feedback-success" class="alert alert-success" role="alert">
     <p>Veel succes met deze module!</p>
 </div>
@@ -42,19 +41,51 @@
 
 <button class="btn btn-primary" id="ok-button">OK</button>
 
+<div id="popup">
+    <p>There is no second player yet.</p>
+    <button id="close-popup">Close</button>
+</div>
+
+<div id="player-turn"></div>
+
 <div id="game-board" class="board"></div>
+
+<div id="controls">
+    <button id="skip-turn">Skip Turn</button>
+    <button id="give-up">Give Up</button>
+</div>
+
+<div id="container"></div>
+<script>
+   
+</script>
+
+<div id="endState" class="endState"></div>
 
 <script>
     // Use jQuery to handle the "OK" button click event
     $(document).ready(function () {
         console.log("Document is ready");  
-             
+
 }); 
 
 function afterInit() {
  console.log('Game init voltooid')
 }
 
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const skipButton = document.getElementById('skip-turn');
+        const giveUpButton = document.getElementById('give-up');
+
+        skipButton.addEventListener('click', function() {
+            Game.Reversie.SkipTurn();
+        });
+
+        giveUpButton.addEventListener('click', function() {
+            Game.Reversie.GiveUp();
+        });
+    });
 
 </script>
 

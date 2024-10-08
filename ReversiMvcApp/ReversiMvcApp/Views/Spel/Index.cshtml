@@ -4,10 +4,41 @@
 @model IEnumerable<ReversiMvcApp.Models.Spel>
 @{
     ViewData["Title"] = "Index";
+    var ongoingGames = ViewBag.OngoingGames as IEnumerable<ReversiMvcApp.Models.Spel>;
 }
 
 <h1>Reversi</h1>
 
+<!-- Display ongoing games for the current player -->
+@if (ongoingGames != null && ongoingGames.Any())
+{
+    <h2>Your Ongoing Games</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Omschrijving)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var game in ongoingGames)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => game.Omschrijving)
+                    </td>
+                    <td>
+                        <a asp-action="Continue" asp-route-token="@game.Token">Continue</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<h2>All Available Games</h2>
 <p>
     <a asp-action="Create">Create new game</a>
 </p>
@@ -21,7 +52,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach(var item in Model)
+        @foreach (var item in Model)
         {
             <tr>
                 <td>
@@ -34,5 +65,3 @@
         }
     </tbody>
 </table>
-
-

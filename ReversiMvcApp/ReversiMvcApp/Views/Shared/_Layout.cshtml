@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ReversiMvcApp.styles.css" asp-append-version="true" />
+    @await RenderSectionAsync("headScripts",false)
 </head>
 <body>
     <header>
@@ -26,10 +27,17 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Spelers" asp-action="Index">Spelers</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Spelers" asp-action="Details">Stats</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Spel" asp-action="Index">Game</a>
+                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="RoleManagement" asp-action="Index">Role Management</a>
+                        </li>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-info" asp-controller="Spelers" asp-action="List">List/Delete Users</a> <!-- New link to List/Delete Users page -->
                         </li>
                     </ul>
                     <partial name="_LoginPartial" />

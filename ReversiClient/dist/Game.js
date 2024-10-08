@@ -18,7 +18,7 @@ const Game = (function (url) {
   const _getCurrentGameState = function () {
     setInterval(function () {
       stateMap.gameState = Game.Model.getGameState();
-    }, 2000);
+    }, 1000);
   };
 
   // Waarde/object geretourneerd aan de outer scope

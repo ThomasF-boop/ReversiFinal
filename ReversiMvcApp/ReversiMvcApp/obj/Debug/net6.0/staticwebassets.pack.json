@@ -17,12 +17,24 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "F:\\school\\Reversi Final\\ReversiFinal\\ReversiMvcApp\\ReversiMvcApp\\wwwroot\\index.html",
+      "PackagePath": "staticwebassets\\index.html"
+    },
+    {
       "Id": "F:\\school\\Reversi Final\\ReversiFinal\\ReversiMvcApp\\ReversiMvcApp\\wwwroot\\js\\app.js",
       "PackagePath": "staticwebassets\\js\\app.js"
     },
     {
       "Id": "F:\\school\\Reversi Final\\ReversiFinal\\ReversiMvcApp\\ReversiMvcApp\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
+    },
+    {
+      "Id": "F:\\school\\Reversi Final\\ReversiFinal\\ReversiMvcApp\\ReversiMvcApp\\wwwroot\\js\\templates.js",
+      "PackagePath": "staticwebassets\\js\\templates.js"
+    },
+    {
+      "Id": "F:\\school\\Reversi Final\\ReversiFinal\\ReversiMvcApp\\ReversiMvcApp\\wwwroot\\js\\vendor.js",
+      "PackagePath": "staticwebassets\\js\\vendor.js"
     },
     {
       "Id": "F:\\school\\Reversi Final\\ReversiFinal\\ReversiMvcApp\\ReversiMvcApp\\wwwroot\\lib\\bootstrap\\LICENSE",

@@ -10,6 +10,8 @@ build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = ReversiMvcApp
 build_property.RootNamespace = ReversiMvcApp
 build_property.ProjectDir = F:\school\Reversi Final\ReversiFinal\ReversiMvcApp\ReversiMvcApp\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
@@ -30,6 +32,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [F:/school/Reversi Final/ReversiFinal/ReversiMvcApp/ReversiMvcApp/Views/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/school/Reversi Final/ReversiFinal/ReversiMvcApp/ReversiMvcApp/Views/RoleManagement/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9sZU1hbmFnZW1lbnRcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/school/Reversi Final/ReversiFinal/ReversiMvcApp/ReversiMvcApp/Views/RoleManagement/Manage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9sZU1hbmFnZW1lbnRcTWFuYWdlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [F:/school/Reversi Final/ReversiFinal/ReversiMvcApp/ReversiMvcApp/Views/Shared/Error.cshtml]
@@ -64,6 +74,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3BlbGVyc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[F:/school/Reversi Final/ReversiFinal/ReversiMvcApp/ReversiMvcApp/Views/Spelers/List.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3BlbGVyc1xMaXN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [F:/school/Reversi Final/ReversiFinal/ReversiMvcApp/ReversiMvcApp/Views/Spel/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3BlbFxDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -74,6 +88,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [F:/school/Reversi Final/ReversiFinal/ReversiMvcApp/ReversiMvcApp/Views/Spel/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3BlbFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/school/Reversi Final/ReversiFinal/ReversiMvcApp/ReversiMvcApp/Views/Spel/Result.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3BlbFxSZXN1bHQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [F:/school/Reversi Final/ReversiFinal/ReversiMvcApp/ReversiMvcApp/Views/_ViewImports.cshtml]

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ReversiRestApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+551c151f4e40ce85a261fefef421570349970a0b")]
 [assembly: System.Reflection.AssemblyProductAttribute("ReversiRestApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ReversiRestApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

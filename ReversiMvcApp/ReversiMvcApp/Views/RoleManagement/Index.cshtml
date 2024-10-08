@@ -1,0 +1,38 @@
+﻿@model IEnumerable<ReversiMvcApp.Models.UserRolesViewModel>
+
+@{
+    ViewData["Title"] = "User Roles Management";
+}
+
+<h1>User Roles Management</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Roles</th>
+            <th>Manage Roles</th>
+            <th>Delete User</th> <!-- New column for Delete User link -->
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.UserName</td>
+                <td>@string.Join(", ", user.Roles)</td>
+                <td>
+                    <a class="btn btn-primary" asp-controller="RoleManagement" asp-action="Manage" asp-route-userId="@user.UserId">Manage Roles</a>
+                </td>
+                <td>
+                    @if (User.IsInRole("Beheerder") || User.IsInRole("Mediator"))
+                    {
+                        <a class="btn btn-danger" asp-controller="Spelers" asp-action="Delete" asp-route-id="@user.UserId" onclick="return confirm('Are you sure you want to delete this user?')">Delete User</a>
+                    }
+                </td>
+            </tr>   
+        }
+    </tbody>
+</table>
+
+<a class="btn btn-secondary" asp-controller="Home" asp-action="Index">Back to Home</a>

@@ -27,65 +27,71 @@ Game.Reversie = (function () {
     cell.className = "cell " + pieceClass;
   };
 
+  const SkipTurn = function () {
+    console.log("Skkip");
+    let skip = {
+      speltoken: Game.configMap.Token,
+      spelertoken: Game.configMap.playerToken,
+    };
+    Game.Data.put(Game.configMap.apiUrl + "pas", skip);
+  };
+
+  const GiveUp = function () {
+    console.log("Give uop");
+    let opgeven = {
+      speltoken: Game.configMap.Token,
+      spelertoken: Game.configMap.playerToken,
+    };
+    Game.Data.put(Game.configMap.apiUrl + "opgeven", opgeven);
+  };
+
   const CreateBord = function (data) {
     const gameBoard = document.getElementById("game-board");
 
-    // Leeg het huidige bord voordat je het opnieuw opbouwt
-    gameBoard.innerHTML = "";
-
-    // Bouw het spelbord op basis van de data array
-    for (let row = 0; row < 8; row++) {
-      for (let col = 0; col < 8; col++) {
-        const cell = document.createElement("div");
-        cell.id = `cell-${row}-${col}`;
-        cell.className = "cell";
-
-        // Voeg een extra klasse toe op basis van de waarde in de data array
-        switch (data[row][col]) {
-          case 1:
-            cell.classList.add("white-piece");
-            break;
-          case 2:
-            cell.classList.add("black-piece");
-            break;
-          // Voeg hier extra cases toe voor andere waarden indien nodig
-        }
-
-        // Voeg een event listener toe als de cel leeg is (geen fiche)
-        if (data[row][col] === 0) {
-          cell.addEventListener("click", () => {
-            // Roep de showPiece-functie aan met de juiste coördinaten en speler (1 voor zwart, 2 voor wit)
-            Game.Reversie.showPiece(row, col, 1);
-          });
-        }
-
-        gameBoard.appendChild(cell);
-      }
-    }
+    const templateFunction = spa_templates.templates.gameboard.body;
+    const renderedHTML = templateFunction({ board: data });
+    document.getElementById("game-board").innerHTML = renderedHTML;
   };
 
   function updateBord(data) {
     const gameBoard = document.getElementById("game-board");
 
-    // Loop door elke cel en werk de klasse bij op basis van de waarde in de data array
-    for (let row = 0; row < 8; row++) {
-      for (let col = 0; col < 8; col++) {
-        const cell = document.getElementById(`cell-${row}-${col}`);
+    const templateFunction = spa_templates.templates.gameboard.body;
+    const renderedHTML = templateFunction({ board: data.bord });
+    document.getElementById("game-board").innerHTML = renderedHTML;
 
-        // Verwijder alle bestaande klassen
-        cell.className = "cell";
+    // Update player turn div based on data.aandeBeurt
+    const playerTurnDiv = document.getElementById("player-turn");
+    if (data.aandeBeurt === 1) {
+      playerTurnDiv.textContent = "Black's turn"; // Replace with actual text or logic as needed
+    } else if (data.aandeBeurt === 2) {
+      playerTurnDiv.textContent = "White's turn"; // Replace with actual text or logic as needed
+    } else {
+      playerTurnDiv.textContent = "Unknown turn"; // Handle unexpected values if needed
+    }
+    const playerColorDiv = document.getElementById("player-color");
+    console.log(Game.configMap.playerToken);
+    console.log(data.speler1Token);
+    if (Game.configMap.playerToken === data.speler1Token) {
+      playerColorDiv.innerHTML = "Your playing as Black";
+    } else {
+      playerColorDiv.innerHTML = "Your playing as White";
+    }
 
-        // Voeg een extra klasse toe op basis van de waarde in de data array
-        switch (data[row][col]) {
-          case 1:
-            cell.classList.add("white-piece");
-            break;
-          case 2:
-            cell.classList.add("black-piece");
-            break;
-          // Voeg hier extra cases toe voor andere waarden indien nodig
-        }
-      }
+    const popup = document.getElementById("popup");
+    if (!data.speler2Token) {
+      popup.style.display = "block"; // Show the popup
+    } else {
+      popup.style.display = "none"; // Hide the popup
+    }
+  }
+
+  function setWinner(winnaar) {
+    const gameBoard = document.getElementById("endState");
+    if (winnaar == null) {
+      gameBoard.innerText = "This game ended in a draw";
+    } else {
+      gameBoard.innerText = "The winner of this game is " + winnaar;
     }
   }
 
@@ -93,7 +99,10 @@ Game.Reversie = (function () {
     init: privateInit,
     initBord: _initBord,
     showPiece: showPiece,
+    SkipTurn: SkipTurn,
+    GiveUp: GiveUp,
     CreateBord: CreateBord,
     updateBord: updateBord,
+    setWinner: setWinner,
   };
 })();

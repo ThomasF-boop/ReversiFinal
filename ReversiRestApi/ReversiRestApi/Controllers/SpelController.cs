@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using ReversiRestApi.Migrations;
 using ReversiRestApi.Model;
 using ReversiRestApi.Model.Api;
 using ReversiRestApi.Repository;
@@ -32,6 +33,12 @@ namespace ReversiRestApi.Controllers
         }
 
 
+        [HttpGet("all")]
+        public ActionResult<IEnumerable<Spel>> GetAllSpellen()
+        {
+            var allSpellen = iRepository.GetSpellen().ToList();
+            return Ok(allSpellen);
+        }
 
         // POST api/spel
         [HttpPost]
@@ -127,7 +134,11 @@ namespace ReversiRestApi.Controllers
                 iRepository.SaveSpellen();
                 if (spel.Afgelopen())
                 {
-                    return Ok("winnaar is " + spel.OverwegendeKleur());
+                    spel.Finished = true;
+                    var winnaar = spel.OverwegendeKleur();
+                    iRepository.SaveSpellen();
+
+                    return Ok("winnaar is " + winnaar);
                 }
                 return Ok(spel.Bord);
             }
@@ -138,24 +149,52 @@ namespace ReversiRestApi.Controllers
           
                     
         }
-
         // PUT
-        [HttpPut("opgeven")]
-        public ActionResult Opgeven(string speltoken, string spelertoken)
+        [HttpPut("pas")]
+        public ActionResult Pas(PlayerGameData data)
         {
-            if (string.IsNullOrEmpty(speltoken) || string.IsNullOrEmpty(spelertoken)) return BadRequest();
+            if (string.IsNullOrEmpty(data.SpelToken) || string.IsNullOrEmpty(data.SpelerToken)) return BadRequest();
 
-            var spel = iRepository.GetSpel(speltoken);
+            var spel = iRepository.GetSpel(data.SpelToken);
 
             if (spel == null)
             {
-                return NotFound($"Spel met speltoken {speltoken} niet gevonden.");
+                return NotFound($"Spel met speltoken {data.SpelToken} niet gevonden.");
             }
-            if (!(spel.Speler1Token == speltoken || spel.Speler2Token == spelertoken)) return BadRequest("Speler zit niet in deze game");
+            if (!(spel.Speler1Token == data.SpelerToken || spel.Speler2Token == data.SpelerToken)) return BadRequest("Speler zit niet in deze game");
 
-            spel.Opgeven();
+            spel.Pas();
+            iRepository.SaveSpellen();
+            return Ok(spel);
+        }
 
-            return Ok(spel.Bord);
+        // PUT
+        [HttpPut("opgeven")]
+        public ActionResult Opgeven(PlayerGameData data)
+        {
+            if (string.IsNullOrEmpty(data.SpelToken) || string.IsNullOrEmpty(data.SpelerToken)) return BadRequest();
+
+            var spel = iRepository.GetSpel(data.SpelToken);
+
+            if (spel == null)
+            {
+                return NotFound($"Spel met speltoken {data.SpelToken} niet gevonden.");
+            }
+            if (!(spel.Speler1Token == data.SpelerToken || spel.Speler2Token == data.SpelerToken)) return BadRequest("Speler zit niet in deze game");
+
+            if (data.SpelerToken == spel.Speler1Token)
+            {
+                spel.Winnaar = spel.Speler2Token;
+            }
+            else
+            {
+                spel.Winnaar = spel.Speler1Token;
+            }
+
+            spel.Finished = true;
+
+            iRepository.SaveSpellen();
+            return Ok(spel);
         }
 
 
@@ -184,6 +223,27 @@ namespace ReversiRestApi.Controllers
                 return true;
             }
             return false;
+        }
+        [HttpDelete("DeleteSpel")]
+        public ActionResult DeleteGame(PlayerGameData removeGame)
+        {
+
+            var spel = iRepository.GetSpel(removeGame.SpelToken);
+
+            if (spel == null)
+            {
+                return NotFound();
+            }
+
+            if (!spel.Finished)
+            {
+                return BadRequest();
+            }
+
+            iRepository.DeleteSpel(spel);
+            iRepository.SaveSpellen();
+
+            return Ok();
         }
 
     }

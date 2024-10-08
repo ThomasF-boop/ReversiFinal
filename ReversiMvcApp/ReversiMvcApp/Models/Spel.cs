@@ -11,5 +11,8 @@ namespace ReversiMvcApp.Models
         public string? Speler2Token { get; set; }
         public Kleur[,] Bord { get; set; }
         public Kleur AandeBeurt { get; set; }
+        public bool Finished { get; set; } = false;
+        public string Winnaar { get; set; }
+        public bool PuntenGegeven { get; set; } = false;
     }
 }
