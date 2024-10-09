@@ -22,7 +22,7 @@ builder.Services.AddCors(p => p.AddPolicy("corsapp", corsPolicyBuilder =>
         {
             var host = new Uri(url).Host;
 
-            return host.Equals("localhost") || host.Equals("nr3353.hbo-ict.org");
+            return host.Equals("localhost") || host.Equals("thomasreversi.hbo-ict.org");
         })
         .WithMethods("GET", "POST", "PUT")
         .AllowAnyHeader();
