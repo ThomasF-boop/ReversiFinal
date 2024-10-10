@@ -71,7 +71,7 @@ namespace ReversiMvcApp.Areas.Identity.Pages.Account
                     pageHandler: null,
                     values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
                     protocol: Request.Scheme,
-                    host: "http://thomasreversi.hbo-ict.org");
+                    host: "thomasreversi.hbo-ict.org");
             }
 
             return Page();
