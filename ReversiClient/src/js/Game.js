@@ -1,6 +1,6 @@
 const Game = (function (url) {
   let configMap = {
-    apiUrl: "https://localhost:7020/api/Spel/",
+    apiUrl: "https://thomasreversi.hbo-ict.org/api/Spel/",
     playerToken: "",
     Token: "",
     Kleur: "",
