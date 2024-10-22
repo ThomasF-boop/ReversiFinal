@@ -14,7 +14,7 @@ function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _ty
 function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 var Game = function (url) {
   var configMap = {
-    apiUrl: "https://localhost:7020/api/Spel/",
+    apiUrl: "https://thomasreversi.hbo-ict.org/api/Spel/",
     playerToken: "",
     Token: "",
     Kleur: ""
@@ -35,6 +35,7 @@ var Game = function (url) {
     configMap.Token = Token;
     Game.Data.init(url, "production");
     Game.Template.init();
+    Game.Stats.init();
     console.log(configMap.apiUrl);
     pollrate = setInterval(_getCurrentGameState, 2000);
   };
@@ -54,6 +55,7 @@ var Game = function (url) {
         console.log("Game is finished");
       } else {
         Game.Reversie.updateBord(data);
+        Game.Stats.updateBoard(data.bord);
       }
     });
   };
@@ -384,6 +386,200 @@ Game.Reversie = function () {
     CreateBord: CreateBord,
     updateBord: updateBord,
     setWinner: setWinner
+  };
+}();
+Game.Stats = function () {
+  console.log("Hallo, vanuit module Stats");
+
+  // Start met een leeg bord (8x8)
+  var board = Array.from({
+    length: 8
+  }, function () {
+    return Array(8).fill(0);
+  });
+  var stoneChart; // Voor de bar grafiek
+  var stoneDistributionChart; // Voor de cirkeldiagram
+
+  // Functie om het aantal stenen te tellen
+  var countStones = function countStones() {
+    var blackCount = 0; // Aantal zwarte stenen
+    var whiteCount = 0; // Aantal witte stenen
+    var emptyCount = 0; // Aantal lege cellen
+
+    // Loop door het bord om het aantal stenen te tellen
+    board.forEach(function (row) {
+      row.forEach(function (cell) {
+        if (cell === 1) {
+          blackCount++; // Zwarte steen
+        } else if (cell === 2) {
+          whiteCount++; // Witte steen
+        } else {
+          emptyCount++; // Lege cel
+        }
+      });
+    });
+    return {
+      black: blackCount,
+      white: whiteCount,
+      empty: emptyCount
+    };
+  };
+
+  // Functie om de grafiek weer te geven
+  var displayChart = function displayChart(blackCount, whiteCount) {
+    var ctx = document.getElementById("stoneChart").getContext("2d");
+
+    // Als de grafiek nog niet bestaat, maak deze aan
+    if (!stoneChart) {
+      stoneChart = new Chart(ctx, {
+        type: "bar",
+        // Type grafiek (bijv. bar, line, pie, etc.)
+        data: {
+          labels: ["Zwarte Stenen", "Witte Stenen"],
+          datasets: [{
+            label: "Aantal Stenen",
+            data: [blackCount, whiteCount],
+            backgroundColor: ["rgba(0, 0, 0, 0.5)",
+            // Zwart voor zwarte stenen
+            "rgba(255, 255, 255, 0.5)" // Wit voor witte stenen
+            ],
+            borderColor: ["rgba(0, 0, 0, 1)",
+            // Zwart voor zwarte stenen
+            "rgba(0, 0, 0, 1)" // Zwart voor de omlijn van de witte stenen
+            ],
+            borderWidth: 2 // Dikte van de omlijn
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+    } else {
+      // Als de grafiek al bestaat, werk de data bij
+      stoneChart.data.datasets[0].data[0] = blackCount; // Bijwerken van zwarte stenen
+      stoneChart.data.datasets[0].data[1] = whiteCount; // Bijwerken van witte stenen
+      stoneChart.update(); // Update de grafiek
+    }
+  };
+
+  // Functie om de verdeling van stenen grafiek weer te geven
+  var displayStoneDistributionChart = function displayStoneDistributionChart() {
+    var _countStones = countStones(),
+      black = _countStones.black,
+      white = _countStones.white,
+      empty = _countStones.empty;
+    var ctx = document.getElementById("stoneDistributionChart").getContext("2d");
+
+    // Als de grafiek nog niet bestaat, maak deze aan
+    if (!stoneDistributionChart) {
+      stoneDistributionChart = new Chart(ctx, {
+        type: "doughnut",
+        // Gebruik doughnut grafiek
+        data: {
+          labels: ["Zwarte Stenen", "Witte Stenen", "Lege Cellen"],
+          datasets: [{
+            label: "Verdeling van Stenen",
+            data: [black, white, empty],
+            backgroundColor: ["rgba(0, 0, 0, 0.5)",
+            // Zwart voor zwarte stenen
+            "rgba(255, 255, 255, 0.5)",
+            // Wit voor witte stenen
+            "rgba(200, 200, 200, 0.5)" // Grijs voor lege cellen
+            ],
+            borderColor: ["rgba(0, 0, 0, 1)",
+            // Zwart voor de omlijn van de zwarte stenen
+            "rgba(0, 0, 0, 1)",
+            // Zwart voor de omlijn van de witte stenen
+            "rgba(150, 150, 150, 1)" // Zwart voor de omlijn van de lege cellen
+            ],
+            borderWidth: 2 // Dikte van de omlijn
+          }]
+        },
+        options: {
+          responsive: true,
+          // Maak de grafiek responsief
+          plugins: {
+            legend: {
+              position: "top" // Plaats de legenda boven de grafiek
+            },
+            tooltip: {
+              callbacks: {
+                label: function label(tooltipItem) {
+                  var label = tooltipItem.label || "";
+                  var value = tooltipItem.raw || 0;
+                  var total = black + white + empty; // Totaal aantal cellen
+                  var percentage = (value / total * 100).toFixed(2); // Percentage
+                  return "".concat(label, ": ").concat(value, " (").concat(percentage, "%)"); // Weergave van het aantal en percentage
+                }
+              }
+            }
+          }
+        }
+      });
+    } else {
+      // Als de grafiek al bestaat, werk de data bij
+      var _countStones2 = countStones(),
+        _black = _countStones2.black,
+        _white = _countStones2.white,
+        _empty = _countStones2.empty;
+      stoneDistributionChart.data.datasets[0].data[0] = _black; // Bijwerken van zwarte stenen
+      stoneDistributionChart.data.datasets[0].data[1] = _white; // Bijwerken van witte stenen
+      stoneDistributionChart.data.datasets[0].data[2] = _empty; // Bijwerken van lege cellen
+      stoneDistributionChart.update(); // Update de grafiek
+    }
+  };
+
+  // Functie om de statistieken weer te geven
+  var displayStats = function displayStats() {
+    var statsContainer = document.getElementById("statsContainer");
+    if (!statsContainer) {
+      console.error("Stats container not found.");
+      return;
+    }
+
+    // Leeg de container
+    statsContainer.innerHTML = "";
+
+    // Tel de stenen
+    var _countStones3 = countStones(),
+      black = _countStones3.black,
+      white = _countStones3.white;
+
+    // Maak een lijst voor de statistieken
+    var blackStats = document.createElement("div");
+    blackStats.textContent = "Aantal zwarte stenen: ".concat(black);
+    statsContainer.appendChild(blackStats);
+    var whiteStats = document.createElement("div");
+    whiteStats.textContent = "Aantal witte stenen: ".concat(white);
+    statsContainer.appendChild(whiteStats);
+
+    // Toon de grafiek
+    displayChart(black, white);
+    // Toon de verdeling van stenen grafiek
+    displayStoneDistributionChart();
+  };
+
+  // Functie om het bord bij te werken
+  var updateBoard = function updateBoard(data) {
+    // Bijwerken van de board-variabele met de nieuwe data
+    board = data;
+    displayStats(); // Geef de statistieken weer
+  };
+
+  // Init functie voor Stats module
+  var init = function init() {
+    console.log("Stats module geinitialiseerd."); // Log de initialisatie
+    displayStats(); // Toon de statistieken bij init
+  };
+
+  // Waarde/object geretourneerd aan de outer scope
+  return {
+    init: init,
+    updateBoard: updateBoard
   };
 }();
 Game.Template = function () {

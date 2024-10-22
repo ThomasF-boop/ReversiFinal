@@ -22,6 +22,7 @@ const Game = (function (url) {
     configMap.Token = Token;
     Game.Data.init(url, "production");
     Game.Template.init();
+    Game.Stats.init();
     console.log(configMap.apiUrl);
     pollrate = setInterval(_getCurrentGameState, 2000);
   };
@@ -44,6 +45,7 @@ const Game = (function (url) {
           console.log("Game is finished");
         } else {
           Game.Reversie.updateBord(data);
+          Game.Stats.updateBoard(data.bord);
         }
       }
     );

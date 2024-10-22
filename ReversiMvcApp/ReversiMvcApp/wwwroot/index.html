@@ -1,4 +1,21 @@
-<!DOCTYPE html><html lang="en"><link><meta charset="UTF-8"><title>Javascript getting started</title><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script><script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><script src="https://code.jquery.com/jquery-3.6.0.min.js"></script><link rel="stylesheet" href="dist/css/style.min.css"><script src="dist/js/app.js"></script><script src="dist/js/vendor.js"></script><script src="dist/js/templates.js"></script><body><div id="feedback-success" class="alert alert-success" role="alert"><p>Veel succes met deze module!</p></div><div id="feedback-danger" class="alert alert-danger" role="alert" style="display:none"><p>Pas op voor loslopende bits.</p></div><button class="btn btn-primary" id="ok-button">OK</button><div id="popup"><p>There is no second player yet.</p><button id="close-popup">Close</button></div><div id="player-turn"></div><div id="game-board" class="board"></div><div id="controls"><button id="skip-turn">Skip Turn</button> <button id="give-up">Give Up</button></div><div id="container"></div><script></script><div id="endState" class="endState"></div><script>// Use jQuery to handle the "OK" button click event
+<!DOCTYPE html><html lang="en"><link><meta charset="UTF-8"><title>Javascript getting started</title><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script><script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><script src="https://code.jquery.com/jquery-3.6.0.min.js"></script><link rel="stylesheet" href="css/style.min.css"><script src="js/app.js"></script><script src="js/vendor.js"></script><script src="js/templates.js"></script><style>#statsContainer{border:1px solid #000;padding:10px;background-color:#fff;color:#000}</style><body><div id="feedback-success" class="alert alert-success" role="alert"><p>Veel succes met deze module!</p></div><div id="feedback-danger" class="alert alert-danger" role="alert" style="display:none"><p>Pas op voor loslopende bits.</p></div><button class="btn btn-primary" id="ok-button">OK</button><div id="popup"><p>There is no second player yet.</p><button id="close-popup">Close</button></div><div id="player-turn"></div><div id="game-board" class="board"></div><div id="controls"><button id="skip-turn">Skip Turn</button> <button id="give-up">Give Up</button></div><div id="container"></div><div id="endState" class="endState"></div><div id="statsContainer"></div><canvas id="stoneChart" width="400" height="200"></canvas><script>// Zorg ervoor dat de Game.Stats module correct wordt geladen
+    Game.Stats.init();
+
+    // Voorbeeld van borddata
+    const exampleBoard = [
+        [0, 1, 0, 2, 0, 1, 0, 0, 0],
+        [1, 1, 0, 0, 0, 2, 0, 2, 0],
+        [0, 0, 2, 1, 1, 0, 0, 0, 0],
+        [0, 2, 0, 0, 0, 1, 0, 0, 0],
+        [0, 0, 0, 2, 0, 0, 1, 0, 0],
+        [1, 0, 0, 0, 0, 2, 0, 0, 0],
+        [0, 1, 0, 0, 1, 0, 0, 2, 0],
+        [0, 0, 2, 0, 0, 0, 0, 1, 1],
+        [0, 0, 0, 0, 1, 0, 0, 0, 0],
+    ];
+
+    // Roep de updateBoard functie aan om de gegevens in te stellen
+    Game.Stats.updateBoard(exampleBoard);</script><script>// Use jQuery to handle the "OK" button click event
     $(document).ready(function () {
         console.log("Document is ready");  
 

@@ -19,3 +19,17 @@
   background-color: #fff;
   border-radius: 50%;
 }
+
+#game-container {
+  display: flex; /* Gebruik flexbox voor een horizontale lay-out */
+  align-items: flex-start; /* Zorg ervoor dat items bovenaan zijn uitgelijnd */
+}
+
+#game-board {
+  flex: 1; /* Laat het speelbord de beschikbare ruimte innemen */
+  margin-right: 20px; /* Voeg wat ruimte toe tussen het bord en de grafiek */
+}
+
+#chart-container {
+  width: 400px; /* Zorg ervoor dat de grafiek een vaste breedte heeft */
+}

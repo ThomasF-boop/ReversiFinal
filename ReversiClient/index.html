@@ -21,12 +21,20 @@
     crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <link rel="stylesheet" href="dist/css/style.min.css">
-
-    <script src="dist/js/app.js"></script>
-    <script src="dist/js/vendor.js"></script>
-    <script src="dist/js/templates.js"></script>
-    
+    <link rel="stylesheet" href="css/style.min.css">
+ 
+    <script src="js/app.js"></script>
+    <script src="js/vendor.js"></script>
+    <script src="js/templates.js"></script>
+  
+    <style>
+        #statsContainer {
+            border: 1px solid black; /* Voor zichtbaarheid */
+            padding: 10px;
+            background-color: white; /* Achtergrondkleur voor contrast */
+            color: black; /* Tekstkleur */
+        }
+    </style>
    
 </head>
 <body>
@@ -56,11 +64,31 @@
 </div>
 
 <div id="container"></div>
-<script>
-   
-</script>
 
 <div id="endState" class="endState"></div>
+<div id="statsContainer"></div>
+<canvas id="stoneChart" width="400" height="200"></canvas>
+<script>
+    // Zorg ervoor dat de Game.Stats module correct wordt geladen
+    Game.Stats.init();
+
+    // Voorbeeld van borddata
+    const exampleBoard = [
+        [0, 1, 0, 2, 0, 1, 0, 0, 0],
+        [1, 1, 0, 0, 0, 2, 0, 2, 0],
+        [0, 0, 2, 1, 1, 0, 0, 0, 0],
+        [0, 2, 0, 0, 0, 1, 0, 0, 0],
+        [0, 0, 0, 2, 0, 0, 1, 0, 0],
+        [1, 0, 0, 0, 0, 2, 0, 0, 0],
+        [0, 1, 0, 0, 1, 0, 0, 2, 0],
+        [0, 0, 2, 0, 0, 0, 0, 1, 1],
+        [0, 0, 0, 0, 1, 0, 0, 0, 0],
+    ];
+
+    // Roep de updateBoard functie aan om de gegevens in te stellen
+    Game.Stats.updateBoard(exampleBoard);
+</script>
+
 
 <script>
     // Use jQuery to handle the "OK" button click event
