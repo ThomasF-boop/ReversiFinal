@@ -1,8 +1,29 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Reversi Web App";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Welkom bij Reversi</h1>
+    <p>Speel Reversi, een klassiek strategisch bordspel.</p>
+    <p>Leer meer over <a href="https://nl.wikipedia.org/wiki/Reversi">Reversi</a> en begin met spelen!</p>
+
+    <div class="mt-5">
+        <h2>Kies een optie:</h2>
+
+        <div class="row justify-content-center mt-4">
+            <!-- Kolom voor het creëren van een nieuw spel -->
+            <div class="col-md-4">
+                <h3>Creëer een nieuw spel</h3>
+                <p>Start je eigen potje Reversi en nodig je vrienden uit!</p>
+                <a class="btn btn-primary btn-lg" asp-action="Create" asp-controller="Spel">Nieuw Spel</a>
+            </div>
+
+            <!-- Kolom voor deelname aan een bestaand spel -->
+            <div class="col-md-4">
+                <h3>Doe mee aan een bestaand spel</h3>
+                <p>Heb je een uitnodiging? Doe mee aan een bestaand potje en laat je strategie zien.</p>
+                <a class="btn btn-success btn-lg" asp-action="Index" asp-controller="Spel">Bekijk Beschikbare Spellen</a>
+            </div>
+        </div>
+    </div>
 </div>

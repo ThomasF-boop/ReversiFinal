@@ -11,8 +11,7 @@
         <tr>
             <th>Username</th>
             <th>Roles</th>
-            <th>Manage Roles</th>
-            <th>Delete User</th> <!-- New column for Delete User link -->
+            <th>Manage Roles</th>        
         </tr>
     </thead>
     <tbody>
@@ -23,12 +22,6 @@
                 <td>@string.Join(", ", user.Roles)</td>
                 <td>
                     <a class="btn btn-primary" asp-controller="RoleManagement" asp-action="Manage" asp-route-userId="@user.UserId">Manage Roles</a>
-                </td>
-                <td>
-                    @if (User.IsInRole("Beheerder") || User.IsInRole("Mediator"))
-                    {
-                        <a class="btn btn-danger" asp-controller="Spelers" asp-action="Delete" asp-route-id="@user.UserId" onclick="return confirm('Are you sure you want to delete this user?')">Delete User</a>
-                    }
                 </td>
             </tr>   
         }

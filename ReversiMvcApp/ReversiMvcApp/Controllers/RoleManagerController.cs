@@ -20,6 +20,7 @@ namespace ReversiMvcApp.Controllers
             _roleManager = roleManager;
         }
 
+        [Authorize(Roles = "Beheerder")]
         public async Task<IActionResult> Index()
         {
             var users = _userManager.Users.ToList();
@@ -38,7 +39,7 @@ namespace ReversiMvcApp.Controllers
 
             return View(userRolesViewModel);
         }
-
+        [Authorize]
         public async Task<IActionResult> Manage(string userId)
         {
             var user = await _userManager.FindByIdAsync(userId);

@@ -63,7 +63,6 @@ namespace ReversiMvcApp.Controllers
             return View();
         }
 
-        [Authorize(Roles = "Beheerder")]
         public IActionResult Privacy()
         {
             return View();

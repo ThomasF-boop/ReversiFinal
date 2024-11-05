@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ReversiMvcApp.Data;
 using ReversiMvcApp.Models;
 using ReversiMvcApp.Service;
@@ -16,7 +17,7 @@ namespace ReversiMvcApp.Controllers
             this.context = context;
             this.api = api;
         }
-
+        [Authorize]
         public async Task<ActionResult> Index()
         {
             var games = await api.GetSpellenMetWachtendeSpeler();

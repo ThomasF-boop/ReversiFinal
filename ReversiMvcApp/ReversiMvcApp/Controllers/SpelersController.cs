@@ -29,6 +29,7 @@ namespace ReversiMvcApp.Controllers
         }
 
         // GET: Spelers
+        [Authorize(Roles = "Beheerder, Mediator")]
         public async Task<IActionResult> Index()
         {
               return _context.Speler != null ? 
@@ -37,6 +38,7 @@ namespace ReversiMvcApp.Controllers
         }
 
         // GET: Spelers/Details/5
+        
         public async Task<IActionResult> Details(string id)
         {
             ClaimsPrincipal currentUser = this.User;
@@ -76,6 +78,7 @@ namespace ReversiMvcApp.Controllers
         }
 
         // GET: Spelers/Edit/5
+        [Authorize(Roles = "Beheerder, Mediator")]
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null || _context.Speler == null)
@@ -96,6 +99,7 @@ namespace ReversiMvcApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Beheerder, Mediator")]
         public async Task<IActionResult> Edit(string id, [Bind("GUID,Naam,AantalGewonnen,AantalVerloren,AantalGelijk")] Speler speler)
         {
             if (id != speler.GUID)
